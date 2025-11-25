@@ -1,18 +1,58 @@
 [
   {
     "ticker": "AAPL",
-    "shares": 10
+    "shares": 19
   },
   {
     "ticker": "MSFT",
-    "shares": 5
+    "shares": 8
   },
   {
-    "ticker": "O",
-    "shares": 50
+    "ticker": "SPY",
+    "shares": 14
   },
   {
     "ticker": "KO",
-    "shares": 25
+    "shares": 4
+  },
+  {
+    "ticker": "NVDA",
+    "shares": 20
+  },
+  {
+    "ticker": "VOO",
+    "shares": 7
+  },
+  {
+    "ticker": "ARKK",
+    "shares": 4
+  },
+  {
+    "ticker": "JPM",
+    "shares": 3
+  },
+  {
+    "ticker": "SPMO",
+    "shares": 6
+  },
+  {
+    "ticker": "SBUX",
+    "shares": 4
+  },
+  {
+    "ticker": "SDY",
+    "shares": 13
+  },
+  {
+    "ticker": "IONQ",
+    "shares": 7
+  },
+  {
+    "ticker": "ZTS",
+    "shares": 42
+  },
+  {
+    "ticker": "DLR",
+    "shares": 12
   }
 ]
