@@ -1,0 +1,18 @@
+[
+  {
+    "ticker": "AAPL",
+    "shares": 10
+  },
+  {
+    "ticker": "MSFT",
+    "shares": 5
+  },
+  {
+    "ticker": "O",
+    "shares": 50
+  },
+  {
+    "ticker": "KO",
+    "shares": 25
+  }
+]

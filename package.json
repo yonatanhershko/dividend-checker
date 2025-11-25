@@ -1,0 +1,13 @@
+{
+  "name": "dividend-checker",
+  "version": "1.0.0",
+  "description": "Checks for dividends and sends email",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.0",
+    "yahoo-finance2": "^2.4.0"
+  }
+}
