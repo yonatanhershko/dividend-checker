@@ -1,13 +1,14 @@
 {
-  "name": "dividend-checker",
-  "version": "1.0.0",
-  "description": "Checks for dividends and sends email",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "nodemailer": "^6.9.0",
-    "yahoo-finance2": "^2.4.0"
-  }
+    "name": "dividend-checker",
+    "version": "1.0.0",
+    "description": "Checks for dividends and creates GitHub Issues",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@actions/core": "^1.10.0",
+        "@actions/github": "^5.1.1",
+        "yahoo-finance2": "^2.4.0"
+    }
 }

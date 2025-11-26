@@ -10,6 +10,8 @@ on:
 jobs:
   check-dividends:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
 
     steps:
       - name: Checkout code
@@ -25,5 +27,5 @@ jobs:
 
       - name: Run Dividend Script
         env:
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node index.js
