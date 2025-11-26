@@ -19,7 +19,8 @@ async function createTestIssue() {
         await octokit.rest.issues.create({
             ...context.repo,
             title: `🧪 Test Issue: Dividend Checker ${today}`,
-            body: `This is a **TEST** issue created manually to verify that the Dividend Checker has permission to create issues.\n\nIf you see this, it works! 🎉`
+            body: `This is a **TEST** issue created manually to verify that the Dividend Checker has permission to create issues.\n\nIf you see this, it works! 🎉`,
+            assignees: [context.repo.owner]
         });
         console.log('Test GitHub Issue created successfully!');
     } catch (error) {

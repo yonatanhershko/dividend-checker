@@ -93,7 +93,8 @@ async function checkDividends() {
             await octokit.rest.issues.create({
                 ...context.repo,
                 title: `💰 Dividend Alert: ${today}`,
-                body: `You have incoming dividends today!\n\n${messages.join('\n---\n')}`
+                body: `You have incoming dividends today!\n\n${messages.join('\n---\n')}`,
+                assignees: [context.repo.owner]
             });
             console.log('GitHub Issue created successfully!');
         } catch (error) {
