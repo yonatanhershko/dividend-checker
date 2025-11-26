@@ -1,14 +1,10 @@
-name: Daily Dividend Checker
+name: Test Email Configuration
 
 on:
-  schedule:
-    # Runs at 13:00 UTC every day
-    - cron: '0 13 * * *'
-  # Allows you to click "Run workflow" manually for testing
   workflow_dispatch:
 
 jobs:
-  check-dividends:
+  test-email:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Dividend Script
+      - name: Run Test Email Script
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
-        run: node index.js
+        run: node test-email.js
