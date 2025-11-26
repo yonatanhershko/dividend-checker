@@ -3,6 +3,9 @@ const yahooFinance = require('yahoo-finance2').default;
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+// Suppress the survey notice
+yahooFinance.suppressNotices(['yahooSurvey']);
+
 async function checkDividends() {
     console.log("Starting Dividend Check...");
 
@@ -24,21 +27,36 @@ async function checkDividends() {
     // 2. Loop through stocks
     for (const item of portfolio) {
         try {
-            const result = await yahooFinance.quoteSummary(item.ticker, { modules: ["summaryDetail", "price"] });
+            // Fetch more modules to catch ETFs (calendarEvents often has the ex-date for funds)
+            const result = await yahooFinance.quoteSummary(item.ticker, { modules: ["summaryDetail", "price", "calendarEvents"] });
             const summary = result.summaryDetail;
             const price = result.price;
+            const calendar = result.calendarEvents;
 
-            if (!summary || !summary.exDividendDate) {
+            let exDivDate = null;
+            let dividendRate = 0;
+
+            // Strategy 1: Check summaryDetail (Stocks usually have it here)
+            if (summary && summary.exDividendDate) {
+                exDivDate = summary.exDividendDate.toISOString().split('T')[0];
+                dividendRate = summary.dividendRate || 0;
+            } 
+            // Strategy 2: Check calendarEvents (ETFs often have it here)
+            else if (calendar && calendar.exDividendDate) {
+                exDivDate = calendar.exDividendDate.toISOString().split('T')[0];
+                // ETFs might not show a fixed "rate", so we might need to rely on yield or just report 0/Unknown if not found
+                dividendRate = summary?.dividendRate || calendar.dividendRate || 0; 
+            }
+
+            if (!exDivDate) {
                 console.log(`[${item.ticker}] No dividend data found or Ex-Date missing.`);
                 continue;
             }
 
-            const exDivDate = summary.exDividendDate.toISOString().split('T')[0];
             console.log(`[${item.ticker}] Ex-Date: ${exDivDate} | Today: ${today}`);
 
             // 3. Check if TODAY is the Ex-Dividend Date
             if (exDivDate === today) {
-                const dividendRate = summary.dividendRate || 0;
                 const totalPayout = (item.shares * dividendRate).toFixed(2);
                 const currentPrice = price.regularMarketPrice;
                 
@@ -65,8 +83,6 @@ async function checkDividends() {
         const token = process.env.GITHUB_TOKEN;
         if (!token) {
             console.error("No GITHUB_TOKEN found. Cannot create issue.");
-            // Don't fail the build, just log error, or maybe fail if critical?
-            // Let's fail so user knows notification didn't go out.
             process.exit(1);
         }
 

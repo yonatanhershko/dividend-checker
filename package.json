@@ -9,6 +9,6 @@
     "dependencies": {
         "@actions/core": "^1.10.0",
         "@actions/github": "^5.1.1",
-        "yahoo-finance2": "^2.4.0"
+        "yahoo-finance2": "^2.13.3"
     }
 }
